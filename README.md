@@ -57,6 +57,7 @@ Serialized collection
 
 ```
 
+
 [npm-image]: https://img.shields.io/npm/v/data-serializer.svg?style=flat
 [travis-image]: https://img.shields.io/travis/crueber/DataSerializer.svg?style=flat
 [travis-url]: https://travis-ci.org/crueber/DataSerializer
