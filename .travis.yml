@@ -3,7 +3,7 @@ node_js:
 - '0.10'
 deploy:
   provider: npm
-  email: kulakowka@gmail.com
+  email: crueber@gmail.com
   api_key:
     secure: Zxrz535Qb8z57eYPIsg3V/4mFThvVQtSzw7Fygk0c3H2pDN2jSzkr6bye7cbZi+BpPmpQaNq0nF/NR75Zjo7GewTeDyQS1c8ufhbWnitCi9kTyT2qE+l4FYJRjI1vpofun/MEz6LItWvRQrf0f2scDZ/BypHWub4CoP3nXxw/Cc=
   on:
