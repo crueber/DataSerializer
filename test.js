@@ -46,4 +46,12 @@ describe('Serializer', function(){
     model.should.have.property('email', model_under_test.profile.email);
   })
 
+  it('should serialize attributes even if nested', function() {
+    var rules = { 'myinfo': { 'email': 'profile.email' } }
+    var model = Serializer(rules, model_under_test);
+
+    model.should.have.property('myinfo', model['myinfo']);
+    model['myinfo'].should.have.property('email', model_under_test.profile.email);
+  })
+
 })

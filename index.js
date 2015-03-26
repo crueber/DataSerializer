@@ -32,6 +32,9 @@ Serializer = (function() {
       if (rule === true) {
         transformed_model[key] = original_model[key];
       }
+      if (typeof rule === 'object' && !Array.isArray(rule)) {
+        transformed_model[key] = this._adapt(rule, original_model);
+      }
       if (typeof rule === 'string') {
         value = void 0;
         rule.split('.').map(function(ikey, index) {

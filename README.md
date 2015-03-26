@@ -10,7 +10,7 @@ DataSerializer
 
 This is a simple data serializer that will allow you to transform one JSON object in to another one, in a different format, via rules. This is a complete rewrite of the library of the similiar name (dataserializer) by kulakowka, with full backwards compatibility to that library. Primarily, it now supports deeply nested objects in the model.
 
-Here is an example that shows most of what is possible with these updates:
+I would highly recommend that you just take a look at the test.js file to get a feel for how it works. Here is a quick sample of what is possible:
 
 ```javascript
 var Serializer = require('data-serializer');
@@ -22,6 +22,7 @@ var rules = {
   'username': true,
   'firstname': false,
   'email': 'profile.email',
+  'myinfo': { email: 'profile.email' },
   'fullname': function() { return this.firstname + ' ' + this.lastname; },
   'password': function() { return false; }
 }
@@ -37,6 +38,7 @@ Serialized model
 { 
   username: 'crueber', 
   email: 'someone@somewhere.com',
+  myinfo: { email: 'someone@somewhere.com' },
   fullname: 'Christopher Rueber' 
 }
 
@@ -45,11 +47,13 @@ Serialized collection
   { 
     username: 'crueber', 
     email: 'someone@somewhere.com',
+    myinfo: { email: 'someone@somewhere.com' },
     fullname: 'Christopher Rueber' 
   },
   { 
     username: 'crueber', 
     email: 'someone@somewhere.com',
+    myinfo: { email: 'someone@somewhere.com' },
     fullname: 'Christopher Rueber' 
   } 
 ]

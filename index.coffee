@@ -19,6 +19,9 @@ class Serializer
       if rule is true
         transformed_model[key] = original_model[key]
 
+      if typeof rule is 'object' and not Array.isArray(rule)
+        transformed_model[key] = @_adapt rule, original_model # Aaagh, recursion!
+
       if typeof rule is 'string'
         value = undefined
         rule.split('.').map (ikey, index) ->
