@@ -1,7 +1,7 @@
 {
-  "name": "dataserializer",
-  "version": "1.0.8",
-  "description": "Simple data serializer for node.js",
+  "name": "data-serializer",
+  "version": "1.1.0",
+  "description": "Data serializer for node.",
   "main": "index.js",
   "engines" : { 
     "node" : ">=0.10.0" 
@@ -15,19 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kulakowka/DataSerializer.git"
+    "url": "https://github.com/crueber/DataSerializer.git"
   },
   "keywords": [
     "serializer"
   ],
-  "author": {
-    "name": "Anton Kulakov",
-    "email": "kulakowka@gmail.com",
-    "url": "http://kulakowka.com"
-  },
-  "license": "ISC",
+  "authors": [ "Christopher Rueber", "Anton Kulakov" ],
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kulakowka/DataSerializer/issues"
+    "url": "https://github.com/crueber/DataSerializer/issues"
   },
-  "homepage": "https://github.com/kulakowka/DataSerializer"
+  "homepage": "https://github.com/crueber/DataSerializer"
 }

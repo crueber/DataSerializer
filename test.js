@@ -2,37 +2,48 @@ var should = require("should");
 
 var Serializer = require('./index');
 
-var model = {
+var model_under_test = {
   username: 'kulakowka',
   firstname: 'Anton',
   lastname: 'Kulakov',
-  password: 'qwerty'
+  password: 'qwerty',
+  profile: { email: 'someone@somewhere.com' }
 }
-
-var collection = [model, model];
-
-var rules = {
-  'username': true,
-  'fullname': function() {
-      return this.firstname + ' ' + this.lastname;    
-  }
-}
-
-var Model = Serializer(rules, model);
-
-var Collection = Serializer(rules, collection);
 
 describe('Serializer', function(){
-  it('Serializer return true data', function(){
+  it('should serialize booleans with a model', function(){
+    var rules = { 'username': true }
+    var model = Serializer(rules, model_under_test);
 
-    Model.should.have.property('username', 'kulakowka');
-    Model.should.have.property('fullname', 'Anton Kulakov');
-
-    Collection.should.be.instanceof(Array).and.have.lengthOf(2);
-    Collection.map(function(user){
-      user.should.have.property('username', 'kulakowka');
-      user.should.have.property('fullname', 'Anton Kulakov');
-    });
-
+    model.should.have.property('username', model_under_test.username);
   })
+
+  it('should serialize functions with a model', function(){
+    var rules = { 'fullname': function() { return this.firstname + ' ' + this.lastname; } }
+    var model = Serializer(rules, model_under_test);
+
+    model.should.have.property('fullname', model_under_test.firstname+' '+model_under_test.lastname);
+  })
+
+  it('should serialize all models in a collection', function() {
+    var rules = {
+      'username': true,
+      'fullname': function() { return this.firstname + ' ' + this.lastname; }
+    }
+    var collection = Serializer(rules, [model_under_test, model_under_test]);
+
+    collection.should.be.instanceof(Array).and.have.lengthOf(2);
+    collection.map(function(user){
+      user.should.have.property('username', model_under_test.username);
+      user.should.have.property('fullname', model_under_test.firstname+' '+model_under_test.lastname);
+    });
+  })
+
+  it('should serialize strings for rules', function() {
+    var rules = { 'email': 'profile.email' }
+    var model = Serializer(rules, model_under_test);
+
+    model.should.have.property('email', model_under_test.profile.email);
+  })
+
 })
