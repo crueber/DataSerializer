@@ -1,13 +1,13 @@
-var Serializer,
+var ObjectSerializer, serializer,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-Serializer = (function() {
-  function Serializer() {
+ObjectSerializer = (function() {
+  function ObjectSerializer() {
     this._adapt = bind(this._adapt, this);
     this["do"] = bind(this["do"], this);
   }
 
-  Serializer.prototype["do"] = function(rules, data) {
+  ObjectSerializer.prototype["do"] = function(rules, data) {
     if (Array.isArray(data)) {
       return data.map((function(_this) {
         return function(item) {
@@ -21,7 +21,7 @@ Serializer = (function() {
     }
   };
 
-  Serializer.prototype._adapt = function(rules, original_model) {
+  ObjectSerializer.prototype._adapt = function(rules, original_model) {
     var key, rule, transformed_model, value;
     if (original_model == null) {
       original_model = {};
@@ -33,7 +33,7 @@ Serializer = (function() {
         transformed_model[key] = original_model[key];
       }
       if (typeof rule === 'object' && !Array.isArray(rule)) {
-        transformed_model[key] = this._adapt(rule, original_model);
+        transformed_model[key] = serializer["do"](rule, original_model);
       }
       if (typeof rule === 'string') {
         value = void 0;
@@ -60,8 +60,10 @@ Serializer = (function() {
     return transformed_model;
   };
 
-  return Serializer;
+  return ObjectSerializer;
 
 })();
 
-module.exports = (new Serializer())["do"];
+serializer = new ObjectSerializer();
+
+module.exports = serializer["do"];

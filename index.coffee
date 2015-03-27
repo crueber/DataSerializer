@@ -1,7 +1,7 @@
 
-class Serializer
+class ObjectSerializer
 
-  constructor: () ->
+  constructor: () -> 
 
   do: (rules, data) =>
     if Array.isArray(data)
@@ -20,7 +20,7 @@ class Serializer
         transformed_model[key] = original_model[key]
 
       if typeof rule is 'object' and not Array.isArray(rule)
-        transformed_model[key] = @_adapt rule, original_model # Aaagh, recursion!
+        transformed_model[key] = serializer.do rule, original_model # Aaagh, recursion!
 
       if typeof rule is 'string'
         value = undefined
@@ -42,5 +42,6 @@ class Serializer
 
     transformed_model
     
+serializer = new ObjectSerializer()
 
-module.exports = (new Serializer()).do
+module.exports = serializer.do
