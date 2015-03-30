@@ -1,5 +1,5 @@
 var should = require("should");
-var Serializer = require('./index');
+var Serializer = require('../index');
 
 var model_under_test = {
   user: 'crueber',
