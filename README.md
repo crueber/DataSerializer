@@ -2,6 +2,7 @@ DataSerializer
 ==============
 [![Build Status][travis-image]][travis-url]
 [![Node.js Version][node-version-image]][node-version-url]
+[![Join the chat at https://gitter.im/crueber/DataSerializer](https://badges.gitter.im/Join%20Chat.svg)][gitter-url]
 
 [![NPM](https://nodei.co/npm/data-serializer.png?downloads=true)](https://nodei.co/npm/data-serializer/)
 
@@ -62,14 +63,6 @@ Serialized collection
 ```
 
 
-[npm-image]: https://img.shields.io/npm/v/data-serializer.svg?style=flat
-[travis-image]: https://img.shields.io/travis/crueber/DataSerializer.svg?style=flat
-[travis-url]: https://travis-ci.org/crueber/DataSerializer
-
-[node-version-image]: https://img.shields.io/badge/node.js-%3E%3D_10.0-brightgreen.svg?style=flat
-[node-version-url]: http://nodejs.org/download/
-
-
 # License
 
 The MIT License
@@ -81,3 +74,10 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[npm-image]: https://img.shields.io/npm/v/data-serializer.svg?style=flat
+[travis-image]: https://img.shields.io/travis/crueber/DataSerializer.svg?style=flat
+[travis-url]: https://travis-ci.org/crueber/DataSerializer
+[gitter-url]: https://gitter.im/crueber/DataSerializer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[node-version-image]: https://img.shields.io/badge/node.js-%3E%3D_10.0-brightgreen.svg?style=flat
+[node-version-url]: http://nodejs.org/download/
