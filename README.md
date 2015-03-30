@@ -6,61 +6,91 @@ DataSerializer
 
 [![NPM](https://nodei.co/npm/data-serializer.png?downloads=true)](https://nodei.co/npm/data-serializer/)
 
+Complete rewrite (and port to CoffeeScript) of the JavaScript library written by [kulakowka/DataSerializer](https://github.com/kulakowka/DataSerializer). Fully backwards compatible. 
 
 ## Data Serializer
 
-This is a simple data serializer that will allow you to transform one JSON object in to another one, in a different format, via rules. This is a complete rewrite of the library of the similiar name (dataserializer) by kulakowka, with full backwards compatibility to that library, despite no code remaining from that library (even the tests are completely altered, though it would still pass the original tests). A deeply nested object model is now supported.
+This is a simple data serializer (or really: reserializer/mapper) that will allow you to transform one JSON object structure into a different one, via rules. A deeply structured model and ruleset is supported. 
 
-I would highly recommend that you just take a look at the test.js file to get a feel for how it works. Here is a quick sample of what is possible:
+The rule object consists of properties which contain strings, functions, and objects. The properties are the names of the property for the target object, and the values are where to pull that data from on the source model. 
+
+* **Strings** will look for the data in the object graph of the model supplied, and may be nested ('profile.email' will look in the profile object for the email property). 
+* **Functions** will apply whatever value is returned to the the property named. Inside the function, 'this' is the model object passed to the serializer.
+* **Objects** will create a nested objected in the target model, and apply the rules and model to that object as well.
+
+All falsy rule values will result in the omission of that attribute. When passing the model in, it can be an array or an object. *Arrays will have each of their contents run through the rules.*
+
+A simple example:
 
 ```javascript
 var Serializer = require('data-serializer');
 
-var model = { username: 'crueber', firstname: 'Christopher', lastname: 'Rueber', password: 'qwerty', profile: { email: 'someone@somewhere.com' } }
-var collection = [model, model];
+var model = { 
+  username: 'crueber', 
+  profile: { 
+    email: 'crueber@gmail.com' 
+  } 
+}
+var rules = { 
+  user: 'username', 
+  email: 'profile.email' 
+}
+return Serializer(rules, model)
+// { 
+//   user: 'crueber', 
+//   email: 'crueber@gmail.com' 
+// }
+```
+
+That is just a taste of what could be done. Here is a slightly more thorough example, that also shows a collection being passed in to a rule set, along with a model:
+
+```javascript
+var model = { 
+  username: 'crueber', 
+  firstname: 'Christopher', 
+  lastname: 'Rueber', 
+  password: 'qwerty', 
+  profile: { 
+    email: 'someone@somewhere.com' 
+  } 
+}
 
 var rules = {
-  'username': true,
-  'firstname': false,
-  'email': 'profile.email',
-  'myinfo': { email: 'profile.email' },
-  'fullname': function() { return this.firstname + ' ' + this.lastname; },
-  'password': function() { return false; }
+  username: true,
+  firstname: false,
+  email: 'profile.email',
+  myinfo: { email: 'profile.email' },
+  fullname: function() { return this.firstname + ' ' + this.lastname; },
+  password: function() { return false; }
 }
 
-var model = Serializer(rules, model);
-console.log('Serialized model', model); 
+return Serializer(rules, model);
+// { 
+//   username: 'crueber', 
+//   email: 'someone@somewhere.com',
+//   myinfo: { email: 'someone@somewhere.com' },
+//   fullname: 'Christopher Rueber' 
+// }
 
-var collection = Serializer(rules, collection);
-console.log('Serialized collection', collection); 
-
-/*
-Serialized model 
-{ 
-  username: 'crueber', 
-  email: 'someone@somewhere.com',
-  myinfo: { email: 'someone@somewhere.com' },
-  fullname: 'Christopher Rueber' 
-}
-
-Serialized collection 
-[ 
-  { 
-    username: 'crueber', 
-    email: 'someone@somewhere.com',
-    myinfo: { email: 'someone@somewhere.com' },
-    fullname: 'Christopher Rueber' 
-  },
-  { 
-    username: 'crueber', 
-    email: 'someone@somewhere.com',
-    myinfo: { email: 'someone@somewhere.com' },
-    fullname: 'Christopher Rueber' 
-  } 
-]
-*/
-
+var collection = [model, model];
+return Serializer(rules, collection);
+// [ 
+//   { 
+//     username: 'crueber', 
+//     email: 'someone@somewhere.com',
+//     myinfo: { email: 'someone@somewhere.com' },
+//     fullname: 'Christopher Rueber' 
+//   },
+//   { 
+//     username: 'crueber', 
+//     email: 'someone@somewhere.com',
+//     myinfo: { email: 'someone@somewhere.com' },
+//     fullname: 'Christopher Rueber' 
+//   } 
+// ]
 ```
+
+For further details, I would recommend glancing at the tests!
 
 
 # License
