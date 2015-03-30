@@ -2,7 +2,7 @@
   "name": "data-serializer",
   "version": "1.1.6",
   "description": "Data serializer for node.",
-  "main": "./lib/index.js",
+  "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
   },
