@@ -1,3 +1,5 @@
+# Copyright(c) 2015 Christopher Rueber <crueber@gmail.com>
+# MIT Licensed
 
 class ObjectSerializer
 
@@ -37,7 +39,7 @@ class ObjectSerializer
       if typeof rule is 'function'
         transformed_model[key] = rule.call(original_model) or false
 
-      unless transformed_model[key]
+      if transformed_model[key] isnt 0 and !transformed_model[key]
         delete transformed_model[key]
 
     transformed_model
